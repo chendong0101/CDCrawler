@@ -1,0 +1,53 @@
+page_name: "youtube_detail"
+page_regular: "www\\.youtube\\.com\\/watch.*v=.*"
+rule {
+    data_name: "title"
+    selector: "#eow-title"
+    extractor_type: Attribute
+    attribute: "title"
+    data_type: Data
+}
+rule {
+    data_name: "description"
+    selector: "#eow-description"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
+    data_name: "viewCount"
+    selector: "#watch7-views-info > div.watch-view-count"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
+    data_name: "likeCount"
+    selector: "#watch8-sentiment-actions > span > span:nth-child(2) > button > span"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
+    data_name: "recommend"
+    selector: "#watch-related > li"
+    extractor_type: SubRules
+    sub_rule {
+        data_name: "url"
+        selector: "div.content-wrapper > a"
+        extractor_type: Attribute
+        attribute: "href"
+        data_type: Url
+    }
+    sub_rule {
+        data_name: "title"
+        selector: "div.content-wrapper > a"
+        extractor_type: Attribute
+        attribute: "title"
+        data_type: Data
+    }
+    sub_rule {
+        data_name: "cover"
+        selector: "div.thumb-wrapper > a > span > img"
+        extractor_type: Attribute
+        attribute: "src"
+        data_type: Data
+    }
+}

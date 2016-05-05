@@ -1,0 +1,30 @@
+
+option java_generic_services = true;
+option java_package = "cd.proto";
+option java_outer_classname = "RuleProto";
+
+enum ExtractorType {
+    Text = 0;
+    Attribute = 1;
+    SubRules = 2;
+}
+
+enum DataType {
+    Data = 0;
+    Url = 1;
+}
+
+message Rule {
+    required string data_name = 1;
+    required string selector = 2;
+    required ExtractorType extractor_type = 3;
+    optional DataType data_type = 4;
+    optional string attribute = 5;
+    repeated Rule sub_rule = 6;
+}
+
+message PageRule {
+    required string page_name = 1;
+    required string page_regular = 2;
+    repeated Rule rule = 3;
+}
