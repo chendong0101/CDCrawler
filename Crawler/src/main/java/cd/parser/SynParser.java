@@ -8,6 +8,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import cd.model.ParseData;
 import cd.proto.RuleProto.Rule;
@@ -17,8 +19,10 @@ import cd.rule.RuleManager;
 /**
  * Created by chendong on 16/4/29.
  */
+@Component
 public class SynParser {
 
+    @Autowired
     private RuleManager ruleManager;
 
     public SynParser() {

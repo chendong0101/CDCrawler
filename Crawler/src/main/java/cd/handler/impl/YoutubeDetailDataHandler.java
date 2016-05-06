@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +44,7 @@ public class YoutubeDetailDataHandler implements DataHandler {
         try {
             String json = JSONSerializerUtils.toJson(parseData);
             output.write(json + "\n");
+            output.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

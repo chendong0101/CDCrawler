@@ -1,0 +1,10 @@
+#ignore these files
+*/target/*
+/.idea
+*/*.iml
+/*.iml
+.DS_Store
+*/logs/*
+*.log
+*~
+target/*

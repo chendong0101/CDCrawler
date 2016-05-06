@@ -10,6 +10,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * Created by chendong on 16/4/29.
  */
 @Slf4j
+@Component
 public class SynCrawler {
 
     public static int DEFAULT_RETRY_TIMES = 3;

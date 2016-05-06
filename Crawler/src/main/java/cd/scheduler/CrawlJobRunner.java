@@ -12,30 +12,35 @@ import cd.parser.SynParser;
  */
 public class CrawlJobRunner implements Runnable {
 
-    private String url;
+    private SynCrawler crawler;
 
     private SynParser parser;
 
-    private SynCrawler crawler;
-
     private HandlerManager handlerManager;
 
-    public CrawlJobRunner(String url, SynParser parser,
-                          SynCrawler crawler, HandlerManager handlerManager) {
-        this.url = url;
+    private CrawlJobQueue jobQueue;
+
+    public CrawlJobRunner(SynParser parser, SynCrawler crawler,
+                          HandlerManager handlerManager, CrawlJobQueue jobQueue) {
         this.parser = parser;
         this.crawler = crawler;
         this.handlerManager = handlerManager;
+        this.jobQueue = jobQueue;
     }
 
     @Override
     public void run() {
-        try {
-            String html = crawler.getPage(url);
-            ParseData data = parser.parseHtml(html, url);
-            handlerManager.handleData(data, url);
-        } catch (IOException e) {
+        while (true) {
+            try {
+                String url = jobQueue.getCrawlJob();
+                System.out.println(url);
+                String html = crawler.getPage(url);
+                ParseData data = parser.parseHtml(html, url);
+                handlerManager.handleData(data, url);
+                Thread.sleep(10);
+            } catch (IOException | InterruptedException e) {
 
+            }
         }
     }
 }

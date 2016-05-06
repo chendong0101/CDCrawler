@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Component;
+
 import cd.proto.RuleProto;
 
 import com.google.protobuf.TextFormat;
@@ -15,10 +19,12 @@ import com.google.protobuf.TextFormat;
 /**
  * Created by chendong on 16/5/5.
  */
+@Component
 public class RuleManager {
 
     private List<RuleProto.PageRule> pageRules;
 
+    @PostConstruct
     public void init() throws IOException {
         pageRules = new ArrayList<>();
         try (InputStream in = getClass()
