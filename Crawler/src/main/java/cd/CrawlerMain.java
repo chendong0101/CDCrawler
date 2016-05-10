@@ -1,8 +1,11 @@
 package cd;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cd.model.CrawlJob;
 import cd.scheduler.CrawlJobScheduler;
 
 /**
@@ -17,14 +20,14 @@ public class CrawlerMain {
         });
 
         CrawlJobScheduler scheduler = context.getBean(CrawlJobScheduler.class);
+        List<String> crawlSeeds = (List<String>)context.getBean("crawlSeeds");
 
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=N8mV27HBo6Q");
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=wk5PFS3VQAI");
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=ekgNJ3FdCNQ");
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=CxzwOhJalGQ");
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=ekgNJ3FdCNQ");
-        scheduler.putCrawlJob(0, "https://www.youtube.com/watch?v=ekgNJ3FdCNQ");
-
+        for (String url : crawlSeeds) {
+            CrawlJob job = new CrawlJob();
+            job.setLevel(0);
+            job.setUrl(url);
+            scheduler.putCrawlJob(job);
+        }
         System.out.println("Crawl Job started!");
     }
 }

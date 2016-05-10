@@ -2,12 +2,14 @@ package cd.scheduler;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import cd.model.CrawlJob;
+
 /**
  * Created by chendong on 16/5/6.
  */
 public class CrawlJobQueue {
 
-    private LinkedBlockingQueue<String> blockingQueue;
+    private LinkedBlockingQueue<CrawlJob> blockingQueue;
 
     public CrawlJobQueue() {
         init();
@@ -17,7 +19,7 @@ public class CrawlJobQueue {
         blockingQueue = new LinkedBlockingQueue();
     }
 
-    public String getCrawlJob() {
+    public CrawlJob getCrawlJob() {
         try {
             return blockingQueue.take();
         } catch (InterruptedException e) {
@@ -26,9 +28,9 @@ public class CrawlJobQueue {
         return null;
     }
 
-    public void putCrawlJob(String url) {
+    public void putCrawlJob(CrawlJob job) {
         try {
-            blockingQueue.put(url);
+            blockingQueue.put(job);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

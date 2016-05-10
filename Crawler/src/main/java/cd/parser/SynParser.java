@@ -49,42 +49,48 @@ public class SynParser {
     }
     public ParseData.Entry parseDocument(Elements document, Rule rule) {
         String name = rule.getDataName();
-        Object value = null;
-        ParseData.EntryType entryType = ParseData.EntryType.DATA;
+        String value;
+        ParseData.DataType dataType = ParseData.DataType.DATA;
 
         Elements elements = document.select(rule.getSelector());
+        switch (rule.getDataType()) {
+            case Data:
+                dataType = ParseData.DataType.DATA;
+                break;
+            case Url:
+                dataType = ParseData.DataType.URL;
+                break;
+        }
         switch (rule.getExtractorType()) {
             case Text:
                 value = extractText(elements);
-                entryType = ParseData.EntryType.DATA;
-                break;
+                return new ParseData.Entry(name, value, null, dataType);
             case Attribute:
                 value = extractAttribute(elements, rule.getAttribute());
-                entryType = ParseData.EntryType.DATA;
-                break;
+                return new ParseData.Entry(name, value, null, dataType);
             case SubRules:
-                value = extractSubDatas(elements, rule.getSubRuleList());
-                entryType = ParseData.EntryType.SUBENTRY;
-                break;
+                List<ParseData> subDatas = extractSubDatas(elements, rule.getSubRuleList());
+                dataType = ParseData.DataType.SUBDATAS;
+                return new ParseData.Entry(name, null, subDatas, dataType);
         }
-        return new ParseData.Entry(name, value, entryType);
+        return null;
     }
 
-    private Object extractText(Elements elements) {
+    private String extractText(Elements elements) {
         if (elements == null || elements.size() == 0) {
             return null;
         }
         return elements.get(0).text();
     }
 
-    private Object extractAttribute(Elements elements, String attribute) {
+    private String extractAttribute(Elements elements, String attribute) {
         if (elements == null || elements.size() == 0) {
             return null;
         }
         return elements.get(0).attr(attribute);
     }
 
-    private Object extractSubDatas(Elements elements, List<Rule> subRules) {
+    private List<ParseData> extractSubDatas(Elements elements, List<Rule> subRules) {
         if (elements == null || elements.size() == 0) {
             return null;
         }

@@ -9,18 +9,20 @@ import java.util.List;
  */
 public class ParseData implements Serializable {
 
-    public static enum EntryType {
-        DATA, SUBENTRY
+    public static enum DataType {
+        DATA, URL, SUBDATAS
     }
 
     public static class Entry implements Serializable{
         public String name;
-        public Object value;
-        public EntryType type;
+        public String data;
+        public List<ParseData> subDatas;
+        public DataType type;
 
-        public Entry(String name, Object value, EntryType type) {
+        public Entry(String name, String data, List<ParseData> subDatas, DataType type) {
             this.name = name;
-            this.value = value;
+            this.data = data;
+            this.subDatas= subDatas;
             this.type = type;
         }
     }
