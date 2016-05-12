@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import cd.crawler.SynCrawler;
 import cd.handler.HandlerManager;
 import cd.model.CrawlJob;
-import cd.model.ParseData;
+import cd.model.MetaData;
 import cd.parser.SynParser;
 
 /**
@@ -56,7 +56,7 @@ public class CrawlJobThread {
                     String url = job.getUrl();
                     System.out.println(url);
                     String html = crawler.getPage(url);
-                    ParseData data = parser.parseHtml(html, url);
+                    MetaData data = parser.parseHtml(html, url);
                     handlerManager.handleData(data, job);
                     Thread.sleep(10);
                 } catch (IOException | InterruptedException e) {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import cd.handler.impl.YoutubeDetailDataHandler;
 import cd.model.CrawlJob;
-import cd.model.ParseData;
+import cd.model.MetaData;
 import cd.scheduler.CrawlJobScheduler;
 
 /**
@@ -31,7 +31,7 @@ public class HandlerManager {
         dataHandlers.add(new YoutubeDetailDataHandler(crawlJobScheduler));
     }
 
-    public void handleData(ParseData parseData, CrawlJob job) {
+    public void handleData(MetaData parseData, CrawlJob job) {
         if (job == null) {
             return;
         }

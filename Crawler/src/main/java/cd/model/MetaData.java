@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by chendong on 16/4/29.
  */
-public class ParseData implements Serializable {
+public class MetaData implements Serializable {
 
     public static enum DataType {
         DATA, URL, SUBDATAS
@@ -16,10 +16,10 @@ public class ParseData implements Serializable {
     public static class Entry implements Serializable{
         public String name;
         public String data;
-        public List<ParseData> subDatas;
+        public List<MetaData> subDatas;
         public DataType type;
 
-        public Entry(String name, String data, List<ParseData> subDatas, DataType type) {
+        public Entry(String name, String data, List<MetaData> subDatas, DataType type) {
             this.name = name;
             this.data = data;
             this.subDatas= subDatas;
@@ -27,7 +27,7 @@ public class ParseData implements Serializable {
         }
     }
 
-    public ParseData() {
+    public MetaData() {
         entries = new ArrayList<>();
     }
 

@@ -26,6 +26,12 @@ rule {
     data_type: Data
 }
 rule {
+    data_name: "duration"
+    selector: "#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div > span.ytp-time-duration"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
     data_name: "cover"
     selector: "#watch7-content > link:nth-child(11)"
     extractor_type: Attribute

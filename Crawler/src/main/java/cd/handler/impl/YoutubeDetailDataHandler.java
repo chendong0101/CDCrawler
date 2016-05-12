@@ -12,9 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import cd.handler.DataHandler;
 import cd.model.CrawlJob;
 import cd.model.JSONSerializerUtils;
-import cd.model.ParseData;
+import cd.model.MetaData;
 import cd.scheduler.CrawlJobScheduler;
-import sun.swing.StringUIClientPropertyKey;
 
 /**
  * Created by chendong on 16/5/5.
@@ -50,13 +49,13 @@ public class YoutubeDetailDataHandler implements DataHandler {
     }
 
     @Override
-    public void handle(ParseData parseData, CrawlJob job) {
+    public void handle(MetaData parseData, CrawlJob job) {
         System.out.println(job.getLevel());
         outputDatas(parseData);
         publishCrawlJobs(parseData, job);
     }
 
-    private void outputDatas(ParseData parseData) {
+    private void outputDatas(MetaData parseData) {
         try {
             String json = JSONSerializerUtils.toJson(parseData);
             output.write(json + "\n");
@@ -66,10 +65,10 @@ public class YoutubeDetailDataHandler implements DataHandler {
         }
     }
 
-    private void publishCrawlJobs(ParseData parseData, CrawlJob job) {
+    private void publishCrawlJobs(MetaData parseData, CrawlJob job) {
         if (job.getLevel() < 2) {
-            for (ParseData.Entry entry : parseData.getEntries()) {
-                if (entry.type.equals(ParseData.DataType.URL)) {
+            for (MetaData.Entry entry : parseData.getEntries()) {
+                if (entry.type.equals(MetaData.DataType.URL)) {
                     CrawlJob newJob = new CrawlJob();
                     String url = entry.data;
                     if (StringUtils.isEmpty(url)) {
@@ -81,8 +80,8 @@ public class YoutubeDetailDataHandler implements DataHandler {
                     newJob.setUrl(url);
                     newJob.setLevel(job.getLevel() + 1);
                     crawlJobScheduler.putCrawlJob(newJob);
-                } else if (entry.type.equals(ParseData.DataType.SUBDATAS)) {
-                    for (ParseData subData : entry.subDatas) {
+                } else if (entry.type.equals(MetaData.DataType.SUBDATAS)) {
+                    for (MetaData subData : entry.subDatas) {
                         publishCrawlJobs(subData, job);
                     }
                 }
