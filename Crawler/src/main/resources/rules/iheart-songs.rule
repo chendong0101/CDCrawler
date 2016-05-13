@@ -1,0 +1,28 @@
+page_name: "iheart-songs"
+page_regular: "www\\.iheart\\.com\\/artist\\/.*\\/songs\\/"
+rule {
+    data_name: "songs"
+    selector: "#main > div:nth-child(2) > section.section-block.songs > table > tbody"
+    extractor_type: SubRules
+    sub_rule {
+        data_name: "cover"
+        selector: "td.art > a > img"
+        extractor_type: Attribute
+        attribute: "src"
+        data_type: Url
+    }
+    sub_rule {
+        data_name: "song_title"
+        selector: "td.track > a"
+        extractor_type: Attribute
+        attribute: "title"
+        data_type: Url
+    }
+    sub_rule {
+        data_name: "song_artist"
+        selector: "td.artist > a"
+        extractor_type: Attribute
+        attribute: "title"
+        data_type: Url
+    }
+}

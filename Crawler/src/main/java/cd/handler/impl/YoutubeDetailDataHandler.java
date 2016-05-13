@@ -14,10 +14,12 @@ import cd.model.CrawlJob;
 import cd.model.JSONSerializerUtils;
 import cd.model.MetaData;
 import cd.scheduler.CrawlJobScheduler;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by chendong on 16/5/5.
  */
+@Slf4j
 public class YoutubeDetailDataHandler implements DataHandler {
 
     private CrawlJobScheduler crawlJobScheduler;
@@ -34,7 +36,7 @@ public class YoutubeDetailDataHandler implements DataHandler {
             String outFile = "./youtube-detail.txt";
             output = new OutputStreamWriter(new FileOutputStream(outFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("", e);
         }
     }
 
@@ -50,7 +52,7 @@ public class YoutubeDetailDataHandler implements DataHandler {
 
     @Override
     public void handle(MetaData parseData, CrawlJob job) {
-        System.out.println(job.getLevel());
+        log.info(job.getLevel() + "");
         outputDatas(parseData);
         publishCrawlJobs(parseData, job);
     }
@@ -61,7 +63,7 @@ public class YoutubeDetailDataHandler implements DataHandler {
             output.write(json + "\n");
             output.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("", e);
         }
     }
 

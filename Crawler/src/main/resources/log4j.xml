@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss} %p [%t] %c{2} %m%n"/>
+        </layout>
+    </appender>
+    <appender name="WEB_SERVER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${web.server.logpath}"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="Append" value="true"/>
+        <param name="Threshold" value="INFO"/>
+        <param name="MaxBackupIndex" value="15"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy/MM/dd HH:mm:ss} %p [%t] %c{2} %m%n"/>
+        </layout>
+    </appender>
+    <logger name="org.springframework">
+        <level value="WARN"/>
+    </logger>
+    <logger name="cd">
+        <level value="INFO"/>
+    </logger>
+    <root>
+        <level value="WARN"/>
+    </root>
+</log4j:configuration>

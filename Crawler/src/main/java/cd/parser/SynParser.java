@@ -25,15 +25,6 @@ public class SynParser {
     @Autowired
     private RuleManager ruleManager;
 
-    public SynParser() {
-        ruleManager = new RuleManager();
-        try {
-            ruleManager.init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public MetaData parseHtml(String page, String url) {
         PageRule pageRule = ruleManager.getPageRule(url);
         Document doc = Jsoup.parse(page);

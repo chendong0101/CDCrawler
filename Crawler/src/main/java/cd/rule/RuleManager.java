@@ -1,8 +1,6 @@
 package cd.rule;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,12 +25,25 @@ public class RuleManager {
     @PostConstruct
     public void init() throws IOException {
         pageRules = new ArrayList<>();
+        List<String> availableRules = new ArrayList<>();
         try (InputStream in = getClass()
-                .getResourceAsStream("/rules/youtube-detail.rule")) {
-            InputStreamReader reader = new InputStreamReader(in, "ASCII");
-            RuleProto.PageRule.Builder builder = RuleProto.PageRule.newBuilder();
-            TextFormat.merge(reader, builder);
-            pageRules.add(builder.build());
+                .getResourceAsStream("/available-rules")) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                availableRules.add(line);
+                System.out.println(line);
+            }
+        }
+        for (String ruleName : availableRules) {
+            String fileName = "/rules/" + ruleName;
+            try (InputStream in = getClass()
+                    .getResourceAsStream(fileName)) {
+                InputStreamReader reader = new InputStreamReader(in, "ASCII");
+                RuleProto.PageRule.Builder builder = RuleProto.PageRule.newBuilder();
+                TextFormat.merge(reader, builder);
+                pageRules.add(builder.build());
+            }
         }
     }
 

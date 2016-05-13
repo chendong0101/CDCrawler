@@ -9,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import cd.handler.impl.DataOutputHandler;
+import cd.handler.impl.GoogleSearchDataHandler;
+import cd.handler.impl.IHeartSongsDataHandler;
 import cd.handler.impl.YoutubeDetailDataHandler;
 import cd.model.CrawlJob;
 import cd.model.MetaData;
@@ -27,8 +30,10 @@ public class HandlerManager {
 
     @PostConstruct
     public void init() {
-        System.out.println("PosConstruct");
+        dataHandlers.add(new DataOutputHandler());
         dataHandlers.add(new YoutubeDetailDataHandler(crawlJobScheduler));
+        dataHandlers.add(new GoogleSearchDataHandler());
+        dataHandlers.add(new IHeartSongsDataHandler());
     }
 
     public void handleData(MetaData parseData, CrawlJob job) {

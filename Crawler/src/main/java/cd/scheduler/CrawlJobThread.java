@@ -13,10 +13,12 @@ import cd.handler.HandlerManager;
 import cd.model.CrawlJob;
 import cd.model.MetaData;
 import cd.parser.SynParser;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by chendong on 16/5/5.
  */
+@Slf4j
 @Component
 public class CrawlJobThread {
 
@@ -54,6 +56,7 @@ public class CrawlJobThread {
                 try {
                     CrawlJob job = jobQueue.getCrawlJob();
                     String url = job.getUrl();
+                    log.info(url);
                     System.out.println(url);
                     String html = crawler.getPage(url);
                     MetaData data = parser.parseHtml(html, url);

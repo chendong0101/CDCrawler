@@ -1,0 +1,53 @@
+page_name: "signer_card"
+page_regular: ".*www\\.google\\.com.*"
+rule {
+    data_name: "signer"
+    selector: "#uid_1 > div._OKe > div:nth-child(2)"
+    extractor_type: SubRules
+    sub_rule {
+        data_name: "name"
+        selector: " div.kp-header > div > div.kp-hc > div > div > div.kno-ecr-pt.kno-fb-ctx"
+        extractor_type: Text
+        data_type: Data
+    }
+    sub_rule {
+        data_name: "attribute"
+        selector: "div._OKe > div:nth-child(2) > div._G1d._wle._xle > div > div:nth-child(3)"
+        extractor_type: SubRules
+        sub_rule {
+            data_name: "attribute_name"
+            selector: "div > div > span._xdb > a"
+            extractor_type: Text
+            data_type: Data
+        }
+        sub_rule {
+            data_name: "attribute_value"
+            selector: "div > div > span._Xbe.kno-fv"
+            extractor_type: Text
+            data_type: Data
+        }
+    }
+    sub_rule {
+        data_name: "songs"
+        selector: "div._OKe > div:nth-child(2) > div:nth-child(3) > div.scrt > div > div.scrt-ic > table > tbody > tr"
+        extractor_type: SubRules
+        sub_rule {
+            data_name: "name"
+            selector: "td:nth-child(1) > a > div"
+            extractor_type: Text
+            data_type: Data
+        }
+        sub_rule {
+            data_name: "year"
+            selector: "td.ellip._VXc > div"
+            extractor_type: Text
+            data_type: Data
+        }
+        sub_rule {
+            data_name: "albums"
+            selector: "td.ellip.rhsg3 > a > div"
+            extractor_type: Text
+            data_type: Data
+        }
+    }
+}

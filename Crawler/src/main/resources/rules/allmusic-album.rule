@@ -1,0 +1,38 @@
+page_name: "allmusic-album"
+page_regular: "www\\.allmusic\\.com\\/album\\/.*"
+rule {
+    data_name: "album_name"
+    selector: "#cmn_wrap > div.content-container > div.content > header > hgroup > h1"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
+    data_name: "album_artist"
+    selector: "#cmn_wrap > div.content-container > div.content > header > hgroup > h2 > span > a"
+    extractor_type: Text
+    data_type: Data
+}
+rule {
+    data_name: "album_cover"
+    selector: "#cmn_wrap > div.content-container > div.sidebar > div.album-cover > div > img"
+    extractor_type: Attribute
+    attribute: "src"
+    data_type: Url
+}
+rule {
+    data_name: "songs"
+    selector: "#cmn_wrap > div.content-container > div.content > section.track-listing > div > table > tbody > tr"
+    extractor_type: SubRules
+    sub_rule {
+        data_name: "song_title"
+        selector: "td.title-composer > div.title > a"
+        extractor_type: Text
+        data_type: Data
+    }
+    sub_rule {
+        data_name: "song_time"
+        selector: "td.time"
+        extractor_type: Text
+        data_type: Data
+    }
+}
