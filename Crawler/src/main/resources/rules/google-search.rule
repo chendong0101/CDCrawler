@@ -12,7 +12,7 @@ rule {
     }
     sub_rule {
         data_name: "attribute"
-        selector: "div._OKe > div:nth-child(2) > div._G1d._wle._xle > div > div:nth-child(3)"
+        selector: "div._G1d._wle._xle > div > div:nth-child(3)"
         extractor_type: SubRules
         sub_rule {
             data_name: "attribute_name"
@@ -29,7 +29,7 @@ rule {
     }
     sub_rule {
         data_name: "songs"
-        selector: "div._OKe > div:nth-child(2) > div:nth-child(3) > div.scrt > div > div.scrt-ic > table > tbody > tr"
+        selector: "div:nth-child(3) > div.scrt > div > div.scrt-ic > table > tbody > tr"
         extractor_type: SubRules
         sub_rule {
             data_name: "name"

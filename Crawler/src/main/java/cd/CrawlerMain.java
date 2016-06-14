@@ -24,6 +24,7 @@ public class CrawlerMain {
         CrawlJobScheduler scheduler = context.getBean(CrawlJobScheduler.class);
         List<String> crawlSeeds = (List<String>)context.getBean("crawlSeeds");
 
+        crawlSeeds.add("https://www.google.com.hk/search?hl=en&q=maluma");
         for (String url : crawlSeeds) {
             CrawlJob job = new CrawlJob();
             job.setLevel(0);

@@ -17,8 +17,9 @@
         <value>https://www.youtube.com/watch?v=CxzwOhJalGQ</value>
         <value>https://www.youtube.com/watch?v=ekgNJ3FdCNQ</value>
         <value>http://www.iheart.com/artist/maluma-687499/songs/</value>
-        -->
         <value>http://www.allmusic.com/album/pretty-boy-dirty-boy-mw0002882558</value>
+        <value>"https://www.google.com.hk/search?hl=en&q=maluma"</value>
+        -->
     </util:list>
     <aop:aspectj-autoproxy/>
 </beans>

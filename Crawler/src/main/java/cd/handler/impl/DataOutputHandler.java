@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DataOutputHandler implements DataHandler {
+
     @Override
     public boolean matchUrl(String url) {
         return true;
